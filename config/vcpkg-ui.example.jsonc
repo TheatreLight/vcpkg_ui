@@ -1,0 +1,14 @@
+{
+  // Copy this file to config/vcpkg-ui.jsonc before starting the application.
+  // Do not commit the copied file: it contains machine-specific settings.
+  // Relative script paths are resolved from VCPKG_ROOT. Absolute paths are
+  // also accepted when a script is stored outside the vcpkg checkout.
+  "schema": 1,
+  "scripts": {
+    // Runs when the Full installation button is confirmed.
+    "fullInstall": "path/to/full-install.cmd",
+
+    // Runs when Maintenance actions > Remove all is confirmed.
+    "removeAll": "path/to/remove-all.cmd"
+  }
+}

@@ -1,0 +1,56 @@
+{
+  // Copy this file to config/vendor-version-sources.jsonc to add or override
+  // package-specific vendor checks. The copied file is ignored by Git.
+  // Packages not listed here continue to use automatic source discovery.
+  "schema": 1,
+  "packages": {
+    // Match stable GitHub tags. The named "version" group is required.
+    "example-github-library": {
+      "provider": "github-tags",
+      "repository": "owner/repository",
+      "tagPrefix": "v",
+      "tagRegex": "^v(?<version>[0-9]+(?:\\.[0-9]+)+)$",
+      "comparisonScheme": "semver",
+      "note": "Config rules override automatic portfile discovery."
+    },
+
+    // Apply replacements before comparing the captured upstream version.
+    "example-transformed-tag-library": {
+      "provider": "github-tags",
+      "repository": "owner/repository",
+      "tagPrefix": "release-",
+      "tagRegex": "^release-(?<version>[0-9_]+)$",
+      "versionTransforms": [
+        {
+          "type": "replace",
+          "from": "_",
+          "to": "."
+        }
+      ]
+    },
+
+    // Scan one or more HTTPS directory indexes for matching files/folders.
+    "example-download-index-library": {
+      "provider": "http-index",
+      "indexUrls": [
+        "https://downloads.example.com/project/",
+        "https://archive.example.com/project/"
+      ],
+      "entryRegex": "^project-(?<version>[0-9]+(?:\\.[0-9]+)+)\\.tar\\.gz$"
+    },
+
+    // Compare the date of a pinned commit with the configured branch head.
+    "example-unreleased-library": {
+      "provider": "github-commit-date",
+      "repository": "owner/repository",
+      "branch": "main",
+      "localCommit": "0123456789abcdef0123456789abcdef01234567"
+    },
+
+    // Mark a known exception without attempting an upstream request.
+    "example-disabled-library": {
+      "provider": "disabled",
+      "reason": "Explain why this port has no independently comparable vendor version."
+    }
+  }
+}
